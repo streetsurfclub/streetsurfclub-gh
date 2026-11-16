@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://streetsurfclub.github.io/streetsurfclub-gh/sitemap.xml

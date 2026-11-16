@@ -1,0 +1,8 @@
+# StreetSurfClub
+
+> Posts about street surfing, spots and sessions.
+
+- [Home](https://streetsurfclub.github.io/streetsurfclub-gh/)
+- [About](https://streetsurfclub.github.io/streetsurfclub-gh/about)
+- [Hello World (markdown)](https://streetsurfclub.github.io/streetsurfclub-gh/blog/hello-world.md)
+- [Colophon (markdown)](https://streetsurfclub.github.io/streetsurfclub-gh/page/colophon.md)

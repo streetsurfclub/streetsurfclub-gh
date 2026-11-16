@@ -1,0 +1,63 @@
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms/schema/sveltia-cms.json
+
+backend:
+  name: github
+  repo: streetsurfclub/streetsurfclub-gh
+  branch: main
+
+# Use the local backend when running on localhost (npm run dev)
+local_backend: true
+
+media_folder: public/images/uploads
+public_folder: /streetsurfclub-gh/images/uploads
+
+publish_mode: simple
+
+collections:
+  - name: blog
+    label: Blog Posts
+    label_singular: Post
+    folder: src/content/blog
+    icon: article
+    create: true
+    slug: '{{slug}}'
+    format: frontmatter
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Slug, name: slug, widget: string, pattern: ['^[a-z0-9]+(?:-[a-z0-9]+)*$', 'Lowercase letters, numbers and dashes only'] }
+      - { label: Description, name: description, widget: text }
+      - { label: Cover Image, name: coverImage, widget: image, required: false }
+      - { label: Published At, name: publishedAt, widget: datetime, format: YYYY-MM-DD, time_format: false }
+      - { label: Tags, name: tags, widget: list, field: { label: Tag, name: tag, widget: string } }
+      - { label: Draft, name: draft, widget: boolean, required: false, default: false }
+      - { label: Body, name: body, widget: markdown }
+  - name: pages
+    label: Pages
+    label_singular: Page
+    folder: src/content/pages
+    icon: account_tree
+    create: true
+    slug: '{{slug}}'
+    format: frontmatter
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Slug, name: slug, widget: string, pattern: ['^[a-z0-9]+(?:-[a-z0-9]+)*$', 'Lowercase letters, numbers and dashes only'] }
+      - { label: Description, name: description, widget: text, required: false }
+      - { label: Body, name: body, widget: markdown }
+  - name: settings
+    label: Site Settings
+    files:
+      - name: site
+        label: Site Settings
+        file: src/content/settings.md
+        format: frontmatter
+        fields:
+          - { label: Site Title, name: title, widget: string }
+          - { label: Tagline, name: tagline, widget: string }
+          - { label: Logo, name: logo, widget: image, required: false }
+          - label: Social Links
+            name: socialLinks
+            widget: list
+            fields:
+              - { label: Platform, name: platform, widget: select, options: [Bluesky, GitHub, Instagram, Mastodon, YouTube, Website] }
+              - { label: URL, name: url, widget: string }
