@@ -2,6 +2,7 @@
 title: Hello World
 slug: hello-world
 description: First post on the new AnalogJS blog — scaffolded for GitHub Pages.
+coverImage: /streetsurfclub-gh/images/uploads/logo-full.png
 publishedAt: 2026-11-16
 tags:
   - analogjs
