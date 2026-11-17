@@ -20,7 +20,7 @@ Es ist vielleicht bekannt, dass der Entwurf einiger der grossartigsten Bauten di
 Peace Let It Burn Firestarter No 1
 21/08/08 By LiniKid
 
-![](/streetsurfclub-gh/images/uploads/f059b342.jpg)
+![FireStarter 2008: Dokument für die Nachwelt](/streetsurfclub-gh/images/uploads/f059b342.jpg)
 
 **live! Wasn hier los? Echt fett**
 

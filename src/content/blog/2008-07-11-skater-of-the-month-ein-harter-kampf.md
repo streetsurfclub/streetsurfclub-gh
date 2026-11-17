@@ -31,7 +31,7 @@ Das Beste ist, dass diese Story in ihrer zeitlichen Abfolge an die des Büssli S
 
 Die ersten 2 Skater jagen an den Bullen vorbei. Nix wie weg. Die nächsten paar werden aufgehalten. Einige haben grösste Mühe rechtzeitig anzuhalten. „Könnt ihr überhaupt bremsen?“ fragt Frau Polizei. „Klar doch!“ Da kommt der Büssli – Saimen und legt einen Muster – Slide hin. „Sehen sie? So geht das“ Meint der Prpaganda- Minister. In diesem Moment kommt der Gü über die besagte Brücke geschossen, sieht die Menschenansammlung und die Bullen und erschrickt dermassen, dass er einen klassischen Taucher hinlegt. Päng. Praktisch vor die Ordnungshüter – Flossen. „Ahh – Ja? So geht das?“ fragt Frau Polizei, sichtlich geschockt, doch nach ein paar belehrenden Worten liess sie die grölende Truppe springen. Auch beim Gü ging zum Glück nur Material in den Eimer..
 
-![](/streetsurfclub-gh/images/uploads/ff8f5610.jpg)Wenn so weitergeht, werden die beiden wohl eine Art Stichwahl machen um den Titel des Skater des Monats.
+![Skater of the Month, ein harter Kampf](/streetsurfclub-gh/images/uploads/ff8f5610.jpg)Wenn so weitergeht, werden die beiden wohl eine Art Stichwahl machen um den Titel des Skater des Monats.
 
 Iiiihhhhh ha!
 11/07/08 By LiniKid

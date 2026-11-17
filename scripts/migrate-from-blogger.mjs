@@ -296,17 +296,21 @@ async function initTurndown() {
   return td;
 }
 
-function htmlToMarkdown(html, imageMap) {
+function htmlToMarkdown(html, imageMap, title = '') {
   // Replace image srcs with local paths using imageMap
   const dom = new JSDOM(html);
   const { document } = dom.window;
 
-  // Replace img src with local if in imageMap
+  // Replace img src with local if in imageMap + set alt fallback
   const imgs = document.querySelectorAll('img');
   for (const img of imgs) {
     const src = img.getAttribute('src');
     if (src && imageMap[src]) {
       img.setAttribute('src', imageMap[src]);
+    }
+    // Fallback alt text: use title if alt is empty
+    if (!img.getAttribute('alt')?.trim()) {
+      img.setAttribute('alt', title);
     }
   }
 
@@ -475,18 +479,18 @@ async function main() {
     // Published date
     const publishedAt = post.published ? new Date(post.published).toISOString().split('T')[0] : new Date().toISOString().split('T')[0];
 
-    // Convert to markdown
-    let markdown = htmlToMarkdown(rawContent, postImageMap);
+    // Convert to markdown (pass title for alt text fallback)
+    let markdown = htmlToMarkdown(rawContent, postImageMap, title);
 
-     // Strip first image from body if it's the cover
-     if (firstImageUrl && postImageMap[firstImageUrl]) {
-       const coverPath = postImageMap[firstImageUrl];
-       // Remove markdown image referencing coverPath: ![anything](coverPath)
-       // Use a simple string-based approach: find and remove the line containing the cover image
-       const lines = markdown.split('\n');
-       const filtered = lines.filter(line => !line.includes(`](${coverPath})`));
-       markdown = filtered.join('\n').replace(/\n{2,}/g, '\n\n').trim();
-     }
+    // Strip first image from body if it's the cover
+    if (firstImageUrl && postImageMap[firstImageUrl]) {
+      const coverPath = postImageMap[firstImageUrl];
+      // Remove markdown image referencing coverPath: ![anything](coverPath)
+      // Use a simple string-based approach: find and remove the line containing the cover image
+      const lines = markdown.split('\n');
+      const filtered = lines.filter(line => !line.includes(`](${coverPath})`));
+      markdown = filtered.join('\n').replace(/\n{2,}/g, '\n\n').trim();
+    }
 
     const frontmatter = {
       title,
@@ -498,7 +502,7 @@ async function main() {
       draft: false,
     };
 
-    postResults.push({ frontmatter, markdown, slug, title });
+    postResults.push({ frontmatter, markdown, slug, title, publishedAt });
     console.log(`   ✓ ${title} → ${slug}`);
   }
 
@@ -507,13 +511,14 @@ async function main() {
   const pageResults = [];
   const pageImageMap = {};
 
-   for (const page of pages) {
-     const title = page.title ? cleanTitle(htmlToText(page.title)) : `page-${page.id}`;
-    const rawContent = decodeBloggerContent(page.content || '');
+    for (const page of pages) {
+      const title = page.title ? cleanTitle(htmlToText(page.title)) : `page-${page.id}`;
+      const rawContent = decodeBloggerContent(page.content || '');
+      const publishedAt = page.published ? new Date(page.published).toISOString().split('T')[0] : new Date().toISOString().split('T')[0];
 
-     // Collect images
-     const pageImageUrls = new Set();
-     const dom = new JSDOM(rawContent);
+      // Collect images
+      const pageImageUrls = new Set();
+      const dom = new JSDOM(rawContent);
      const imgs = dom.window.document.querySelectorAll('img');
      for (const img of imgs) {
        const src = img.getAttribute('src');
@@ -544,17 +549,17 @@ async function main() {
     // Description
     const description = generatePreview(rawContent, 150);
 
-    // Convert to markdown
-    const markdown = htmlToMarkdown(rawContent, pageImageMap);
+     // Convert to markdown (pass title for alt text fallback)
+     const markdown = htmlToMarkdown(rawContent, pageImageMap, title);
 
-    const frontmatter = {
-      title,
-      slug,
-      ...(description ? { description } : {}),
-    };
+     const frontmatter = {
+       title,
+       slug,
+       ...(description ? { description } : {}),
+     };
 
-    pageResults.push({ frontmatter, markdown, slug, title });
-    console.log(`   ✓ ${title} → ${slug}`);
+     pageResults.push({ frontmatter, markdown, slug, title, publishedAt });
+     console.log(`   ✓ ${title} → ${slug}`);
   }
 
   // Dry-run report
@@ -597,21 +602,23 @@ async function main() {
      return lines.join('\n');
    }
 
-   for (const { frontmatter, markdown, slug } of postResults) {
-     const fmStr = serializeFrontmatter(frontmatter);
-     const content = `---\n${fmStr}\n---\n\n${markdown}\n`;
-     const filepath = join(CONTENT_BLOG_DIR, `${slug}.md`);
-     await writeFile(filepath, content, 'utf8');
-     console.log(`   ✓ ${filepath}`);
-   }
+    for (const { frontmatter, markdown, slug, publishedAt } of postResults) {
+      const fmStr = serializeFrontmatter(frontmatter);
+      const content = `---\n${fmStr}\n---\n\n${markdown}\n`;
+      const filename = `${publishedAt}-${slug}.md`;
+      const filepath = join(CONTENT_BLOG_DIR, filename);
+      await writeFile(filepath, content, 'utf8');
+      console.log(`   ✓ ${filepath}`);
+    }
 
-   for (const { frontmatter, markdown, slug } of pageResults) {
-     const fmStr = serializeFrontmatter(frontmatter);
-     const content = `---\n${fmStr}\n---\n\n${markdown}\n`;
-     const filepath = join(CONTENT_PAGES_DIR, `${slug}.md`);
-     await writeFile(filepath, content, 'utf8');
-     console.log(`   ✓ ${filepath}`);
-   }
+    for (const { frontmatter, markdown, slug, publishedAt } of pageResults) {
+      const fmStr = serializeFrontmatter(frontmatter);
+      const content = `---\n${fmStr}\n---\n\n${markdown}\n`;
+      const filename = `${publishedAt}-${slug}.md`;
+      const filepath = join(CONTENT_PAGES_DIR, filename);
+      await writeFile(filepath, content, 'utf8');
+      console.log(`   ✓ ${filepath}`);
+    }
 
   console.log(`\n✅ Done — ${postResults.length} posts, ${pageResults.length} pages written.\n`);
   console.log(`   Images: ${downloaded.size} downloaded to ${MEDIA_DIR}`);

@@ -4,7 +4,7 @@ slug: longboard-disziplinen
 description: Longboarding – die Kunst des Asphaltsurfens Die Vielseitigkeit des Sportes ist enorm. Nebst dem klassischen Cruisen, was viele Leute mit Longboarden
 ---
 
-![](/streetsurfclub-gh/images/uploads/d4f3c807.jpg)
+![Longboard Disziplinen](/streetsurfclub-gh/images/uploads/d4f3c807.jpg)
 
 ### Longboarding – die Kunst des Asphaltsurfens
 
