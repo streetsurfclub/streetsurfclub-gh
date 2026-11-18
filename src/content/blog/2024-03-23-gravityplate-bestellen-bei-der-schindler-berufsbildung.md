@@ -13,4 +13,4 @@ tags:
 draft: false
 ---
 
-
+Aktuell können unsere Mitglieder Gravity Plates bestellen, die wir Dank dem Sponsoring der Schindler Berufsbildung gratis herstellen können. Auswählen kann man zwischen rostfreiem Chromstahl oder normalem Stahl. Die Kosten fürs Rohmaterial sind jedoch selbst zu tragen.
