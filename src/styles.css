@@ -29,6 +29,8 @@ pre code {
 .site-nav {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
+  row-gap: 0.5rem;
   gap: 1rem;
 }
 
@@ -40,6 +42,8 @@ pre code {
 
 .nav-links {
   display: flex;
+  flex-wrap: wrap;
+  min-width: 0;
   gap: 1rem;
   list-style: none;
   margin: 0;
@@ -127,7 +131,20 @@ pre code {
   list-style: none;
   padding: 0;
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 1.5rem;
+}
+
+.post-card {
+  min-width: 0;
+}
+
+/* Pico sets `ul li { list-style: square }` on the li itself — kill markers there. */
+.post-list li,
+.nav-links li,
+.tags li,
+#mobile-nav li {
+  list-style: none;
 }
 
 .post-card img {
@@ -140,6 +157,7 @@ pre code {
 .tags {
   list-style: none;
   display: flex;
+  flex-wrap: wrap;
   gap: 0.5rem;
   padding: 0;
   margin: 0.5rem 0 0;
