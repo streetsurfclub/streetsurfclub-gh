@@ -16,4 +16,10 @@ tags:
 draft: false
 ---
 
+Mit den sechs neuen Filmen der EOFT 2024 erlebst du die Welt von ihrer abenteuerlichsten Seite!
 
+Klettern, Raften, Skifahren, Mountainbiken und **DOWNHILL - LONGBOARDING!!!** 
+
+Am Sonntag 15.12.2024 finden in der Messe Allmend die Filmvorstellung statt, und wir als Streetsurfclub haben die Chance unseren Verein vor mehreren Hundert Zuschauern zu präsentieren.
+
+Komm vorbei und sichere dir 10% Rabatt auf dein Ticket mit folgendem Rabattcode: SKATE4EOFT
