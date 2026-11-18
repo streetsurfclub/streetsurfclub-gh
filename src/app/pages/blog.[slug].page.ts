@@ -45,7 +45,7 @@ export const routeMeta: RouteMeta = {
         <a routerLink="/" class="back">&larr; All posts</a>
         <h1>{{ post.attributes.title }}</h1>
         <p class="meta">
-          <time>{{ post.attributes.publishedAt | date: 'mediumDate' }}</time>
+          <time [attr.datetime]="post.attributes.publishedAt">{{ post.attributes.publishedAt | date: 'mediumDate' }}</time>
         </p>
         <ul class="tags">
           @for (tag of post.attributes.tags; track tag) {
