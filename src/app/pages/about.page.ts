@@ -5,9 +5,13 @@ import { RouterLink } from '@angular/router';
   selector: 'app-about',
   imports: [RouterLink],
   template: `
-    <h1>About</h1>
-    <p>StreetSurfClub — a blog built with AnalogJS, Angular and Pico.css, hosted on GitHub Pages.</p>
-    <a routerLink="/">Back to posts</a>
+    <article class="post">
+      <a routerLink="/" class="back">&larr; Home</a>
+      <h1>About</h1>
+      <div class="post-content">
+        <p>StreetSurfClub — a blog built with AnalogJS and Angular, hosted on GitHub Pages.</p>
+      </div>
+    </article>
   `,
 })
 export default class AboutPage {}
