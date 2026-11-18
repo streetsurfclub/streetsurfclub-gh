@@ -6,10 +6,11 @@ import { injectContentFiles } from '@analogjs/content';
 import { PostAttributes } from '../post.model';
 import { PageAttributes } from '../page.model';
 import { injectSiteSettings } from '../site-settings';
+import { PostList, POSTS_PER_PAGE } from '../post-list';
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink, DatePipe],
+  imports: [RouterLink, DatePipe, PostList],
   template: `
     <header class="hero">
       <div class="container">
@@ -20,31 +21,7 @@ import { injectSiteSettings } from '../site-settings';
 
     <section class="section">
       <div class="container">
-        <ul class="post-list">
-          @for (post of posts; track post.attributes.slug) {
-            <li class="post-card">
-              <a [routerLink]="['/blog', post.attributes.slug]">
-                @if (post.attributes.coverImage) {
-                  <img [src]="post.attributes.coverImage" [alt]="post.attributes.title" />
-                }
-                <div class="post-card-body">
-                  <h2>{{ post.attributes.title }}</h2>
-                  <p class="meta">
-                    <time [attr.datetime]="post.attributes.publishedAt">{{ post.attributes.publishedAt | date: 'mediumDate' }}</time>
-                  </p>
-                  <p>{{ post.attributes.description }}</p>
-                  <ul class="tags">
-                    @for (tag of post.attributes.tags; track tag) {
-                      <li>#{{ tag }}</li>
-                    }
-                  </ul>
-                </div>
-              </a>
-            </li>
-          } @empty {
-            <li>No posts yet.</li>
-          }
-        </ul>
+        <app-post-list [posts]="posts" [page]="1" [totalPages]="totalPages" />
 
         @if (pages.length) {
           <h2 class="section-title">Pages</h2>
@@ -72,11 +49,13 @@ export default class HomePage {
   readonly pages = injectContentFiles<PageAttributes>((file) =>
     file.filename.includes('src/content/pages/'),
   ).sort((a, b) => a.attributes.title.localeCompare(b.attributes.title));
-  readonly posts = injectContentFiles<PostAttributes>((file) =>
+  readonly allPosts = injectContentFiles<PostAttributes>((file) =>
     file.filename.includes('src/content/blog/'),
   ).sort(
     (a, b) =>
       new Date(b.attributes.publishedAt).getTime() -
       new Date(a.attributes.publishedAt).getTime(),
   );
+  readonly posts = this.allPosts.slice(0, POSTS_PER_PAGE);
+  readonly totalPages = Math.max(1, Math.ceil(this.allPosts.length / POSTS_PER_PAGE));
 }
