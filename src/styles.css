@@ -362,14 +362,14 @@ app-root {
 }
 
 /* ── Post grid — masonry via CSS columns (css-nojs multi-column pattern):
-   1/2/3 cols, 25px gutter, cards flow down columns ───────────────────── */
+   1/2/3 cols, 40px gutter, cards flow down columns ───────────────────── */
 
 .post-list {
   list-style: none;
   padding: 0;
   margin: 0;
   columns: 1;
-  column-gap: 25px;
+  column-gap: 40px;
 }
 @media (min-width: 768px) {
   .post-list { columns: 2; }
@@ -388,7 +388,18 @@ app-root {
 /* Skip rendering off-screen cards — huge win with many posts, pure CSS. */
 .post-card {
   content-visibility: auto;
-  contain-intrinsic-size: auto 340px;
+  contain-intrinsic-size: auto 380px;
+  /* slight card border so masonry items read as separate cards */
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 12px;
+  transition: border-color 0.2s ease;
+}
+
+@media (hover: hover) {
+  .post-card:hover {
+    border-color: var(--muted);
+  }
 }
 
 /* Pagination */
