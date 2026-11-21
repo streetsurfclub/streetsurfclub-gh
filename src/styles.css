@@ -1,34 +1,64 @@
 @import 'prismjs/themes/prism.css';
 
-/* ── Tokens — Canora palette, hand-rolled, no framework ─────────────── */
+/* ── Tokens — Le Corbusier Salubra 1959 (4320A–4320W, via lecorbusier-mcp)
+   role=wall   → backgrounds (bg, band, pill, quote, code, footer)
+   role=accent → text, links, borders, highlights
+   Text/bg pairs WCAG AA ≥ 4.5:1, UI/borders ≥ 3:1 (ratios in comments)  ── */
 
 :root {
   color-scheme: light;
   --font: 'Lexend', system-ui, sans-serif;
 
-  --bg: #ffffff;
-  --ink: #110e2e;            /* headings, brand */
-  --muted: #666666;          /* body text */
-  --primary: #4050e2;        /* links */
-  --accent: #ffdd6f;         /* buttons */
-  --accent-hover: #75e6e3;   /* button hover */
-  --band: #f7f5f0;           /* hero / pills background */
-  --line: #e9e6df;           /* borders */
-  --code-bg: #f7f5f0;
+  /* wall tones — surfaces */
+  --bg: #FFFCEB;             /* 4320B blanc ivoire */
+  --band: #F2B573;           /* 4320L ocre jaune clair — hero, table heads */
+  --pill: #F7CC9D;           /* 4320P terre sienne claire 59 — tags, hovers */
+  --quote-bg: #7FACC6;       /* 4320N bleu céruléen 59 — blockquote */
+  --code-bg: #899498;        /* 4320O gris clair 59 — code */
+  --on-band: #080F15;        /* 4320E noir d'ivoire on ocre (10.7:1) */
+  --on-pill: #69372B;        /* 4320D terre sienne brûlée 59 on terre sienne claire (6.5:1) */
+  --code-ink: #080F15;       /* 4320E on gris clair (6.2:1) */
 
-  --radius: 7px;             /* Canora card/button radius */
+  /* accent tones — text / borders / highlights */
+  --ink: #080F15;            /* 4320E noir d'ivoire on blanc ivoire (18.7:1) */
+  --heading: #0E2D58;        /* 4320T bleu outremer foncé — h1/h2 (13.3:1) */
+  --muted: #333230;          /* 4320R ombre naturelle 59 on blanc ivoire (12.4:1) */
+  --primary: #0E2D58;        /* 4320T bleu outremer foncé — links (13.3:1) */
+  --nav-link: #0E2D58;       /* 4320T — nav items, distinct from body text */
+  --accent: #F4BD48;         /* 4320W le jaune vif — buttons */
+  --on-accent: #080F15;      /* 4320E on le jaune vif (11.2:1) */
+  --accent-hover: #0E2D58;   /* 4320T — button hover */
+  --on-accent-hover: #F4BD48;/* 4320W on bleu outremer foncé (8.0:1) */
+  --highlight: #A33A29;      /* 4320A rouge vermillon 59 — underlines, quote border */
+  --strong-bg: #0E2D58;      /* 4320T — current page, active nav item */
+  --strong-fg: #F4BD48;      /* 4320W on bleu outremer foncé (8.0:1) */
+  --sel-bg: #0E2D58;         /* 4320T — text selection */
+  --sel-fg: #F4BD48;         /* 4320W (8.0:1) */
+  --line: color-mix(in srgb, #559778 55%, transparent); /* 4320G vert 59 — border hue, distinct from noir text */
+
+  --radius: 7px;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     color-scheme: dark;
-    --bg: #12102b;             /* Canora ink, darkened */
-    --ink: #eef0f8;
-    --muted: #a6adc0;
-    --primary: #93a5ff;
-    --band: #1c1a38;
-    --line: #2e2b52;
-    --code-bg: #1c1a38;
+    /* wall tones — gris foncé carries the dark page, warm walls stay colorful */
+    --bg: #4A535B;           /* 4320U gris foncé 59 */
+    --code-bg: #F7CC9D;      /* 4320P terre sienne claire 59 */
+    /* accent tones — le jaune vif is the only accent ≥ 4.5:1 on gris foncé (4.6:1) */
+    --ink: #F4BD48;          /* 4320W le jaune vif (4.6:1) */
+    --heading: #DE8DA0;      /* 4320C rose vif — h1 is large text (≥24px bold), 3.1:1 ≥ 3:1 */
+    --muted: #F4BD48;        /* 4320W */
+    --primary: #F4BD48;      /* 4320W */
+    --nav-link: #F4BD48;     /* 4320W (4.6:1) */
+    --accent: #A4AA35;       /* 4320F vert olive vif — buttons */
+    --on-accent: #080F15;    /* 4320E on vert olive vif (7.5:1) */
+    --accent-hover: #D15C32; /* 4320S orange vif */
+    --on-accent-hover: #080F15; /* 4320E on orange vif (4.9:1) */
+    --highlight: #F4BD48;    /* 4320W */
+    --strong-bg: #F4BD48;    /* 4320W */
+    --strong-fg: #080F15;    /* 4320E on le jaune vif (11.2:1) */
+    --line: color-mix(in srgb, #DE8DA0 35%, transparent); /* 4320C rose vif — border hue, distinct from jaune text */
   }
 }
 
@@ -55,7 +85,13 @@ body {
 }
 
 h1,
-h2,
+h2 {
+  color: var(--heading);     /* two-tone headings: 4320T light / 4320C dark */
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 0 0 1rem;
+}
+
 h3,
 h4 {
   color: var(--ink);
@@ -83,6 +119,11 @@ a {
   text-underline-offset: 3px;
 }
 
+a:hover {
+  color: var(--highlight);   /* 4320A light (6.4:1) / 4320W dark (4.6:1) */
+  text-decoration-thickness: 2px;
+}
+
 img,
 video {
   max-width: 100%;
@@ -99,12 +140,14 @@ code {
   font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
   font-size: 0.88em;
   background: var(--code-bg);
+  color: var(--code-ink);
   padding: 0.15em 0.4em;
   border-radius: 4px;
 }
 
 pre {
   background: var(--code-bg);
+  color: var(--code-ink);
   padding: 1rem 1.25rem;
   border-radius: var(--radius);
   overflow-x: auto;
@@ -127,14 +170,15 @@ pre .token {
 blockquote {
   margin: 0 0 1rem;
   padding: 0.75rem 1.25rem;
-  border-left: 3px solid var(--accent);
-  background: var(--band);
+  border-left: 4px solid var(--highlight); /* 4320A / 4320W */
+  background: var(--quote-bg);             /* 4320N bleu céruléen 59 */
+  color: var(--on-band);                   /* 4320E noir d'ivoire (7.9:1) */
   border-radius: 0 var(--radius) var(--radius) 0;
 }
 
 hr {
   border: none;
-  border-top: 1px solid var(--line);
+  border-top: 2px solid var(--highlight); /* 4320A / 4320W */
   margin: 2rem 0;
 }
 
@@ -151,13 +195,19 @@ td {
   text-align: left;
 }
 th {
-  color: var(--ink);
+  color: var(--on-band);
   background: var(--band);
 }
 
+@media (prefers-color-scheme: light) {
+  tbody tr:hover {
+    background: #F7CC9D;     /* 4320P terre sienne claire 59 */
+  }
+}
+
 ::selection {
-  background: var(--accent);
-  color: #110e2e;
+  background: var(--sel-bg);
+  color: var(--sel-fg);
 }
 
 :focus-visible {
@@ -219,6 +269,11 @@ app-root {
   text-decoration: none;
 }
 
+.site-nav .brand::after {
+  content: '.';
+  color: var(--highlight);   /* 4320A rouge vermillon 59 / 4320W dark */
+}
+
 .nav-links {
   display: flex;
   flex-wrap: wrap;
@@ -230,20 +285,22 @@ app-root {
 }
 
 .nav-links a {
-  color: var(--ink);
+  color: var(--nav-link);
   font-weight: 500;
   font-size: 0.95rem;
   text-decoration: none;
 }
 
 .nav-links a:hover {
-  color: var(--primary);
+  color: var(--highlight);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
 }
 
 .nav-links a.active {
   font-weight: 600;
   text-decoration: underline;
-  text-decoration-color: var(--accent);
+  text-decoration-color: var(--highlight);
   text-decoration-thickness: 3px;
   text-underline-offset: 6px;
 }
@@ -280,11 +337,11 @@ app-root {
   border-radius: 0;
   background: var(--bg);
   color: var(--ink);
-  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.2);
+  box-shadow: -4px 0 24px rgba(8, 15, 21, 0.25); /* 4320E noir d'ivoire */
 }
 
 #mobile-nav::backdrop {
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(8, 15, 21, 0.45); /* 4320E noir d'ivoire */
 }
 
 #mobile-nav ul {
@@ -300,18 +357,19 @@ app-root {
   display: block;
   padding: 0.5rem 0.75rem;
   border-radius: var(--radius);
-  color: var(--ink);
+  color: var(--nav-link);
   text-decoration: none;
 }
 
 #mobile-nav a:hover {
   background: var(--band);
+  color: var(--on-band);
 }
 
 #mobile-nav a.active {
   font-weight: 600;
-  background: var(--accent);
-  color: #110e2e;
+  background: var(--strong-bg);
+  color: var(--strong-fg);
 }
 
 @media (max-width: 768px) {
@@ -323,29 +381,32 @@ app-root {
   }
 }
 
-/* ── Hero band — Canora page-title band (#f7f5f0, centered) ─────────── */
+/* ── Hero band — ocre jaune clair 59 (4320L), noir d'ivoire text ────── */
 
 .hero {
-  background: var(--band);
+  /* wall tones only: 4320L ocre jaune clair → 4320P terre sienne claire 59 */
+  background: linear-gradient(135deg, #F2B573 0%, #F7CC9D 100%);
   text-align: center;
   padding-block: clamp(60px, 9vw, 120px);
 }
 
 .hero h1 {
+  color: var(--on-band);
   margin-bottom: 0.75rem;
 }
 
 .hero p {
+  color: var(--on-band);
   margin: 0;
   font-size: clamp(0.95rem, 0.9rem + 0.4vw, 1.0625rem);
 }
 
-/* ── Buttons — Canora accent pill, yellow → cyan on hover ────────────── */
+/* ── Buttons — le jaune vif → bleu outremer foncé on hover ───────────── */
 
 .btn {
   display: inline-block;
   background: var(--accent);
-  color: #110e2e;
+  color: var(--on-accent);
   font-weight: 600;
   font-size: clamp(0.8125rem, 0.78rem + 0.3vw, 1rem);
   text-decoration: none;
@@ -358,7 +419,7 @@ app-root {
 
 .btn:hover {
   background: var(--accent-hover);
-  color: #110e2e;
+  color: var(--on-accent-hover);
 }
 
 /* ── Post grid — masonry via CSS columns (css-nojs multi-column pattern):
@@ -389,16 +450,34 @@ app-root {
 .post-card {
   content-visibility: auto;
   contain-intrinsic-size: auto 380px;
-  /* slight card border so masonry items read as separate cards */
+  /* card border + bold accent top edge, rotating through Salubra accents */
   border: 1px solid var(--line);
+  border-top: 4px solid var(--line);
   border-radius: var(--radius);
   padding: 12px;
   transition: border-color 0.2s ease;
 }
 
+/* accent top edge per card — light mode, all 10 Salubra-1959 accents,
+   every one ≥ 3:1 vs blanc ivoire (ratios computed WCAG-style) */
+@media (prefers-color-scheme: light) {
+  .post-list li:nth-child(10n+1)  .post-card { border-top-color: #A33A29; } /* 4320A rouge vermillon 59 (6.4:1) */
+  .post-list li:nth-child(10n+2)  .post-card { border-top-color: #0E2D58; } /* 4320T bleu outremer foncé (13.3:1) */
+  .post-list li:nth-child(10n+3)  .post-card { border-top-color: #D15C32; } /* 4320S orange vif (3.9:1) */
+  .post-list li:nth-child(10n+4)  .post-card { border-top-color: #559778; } /* 4320G vert 59 (3.4:1) */
+  .post-list li:nth-child(10n+5)  .post-card { border-top-color: #395A8E; } /* 4320K bleu outremer 59 (6.7:1) */
+  .post-list li:nth-child(10n+6)  .post-card { border-top-color: #6C2B3B; } /* 4320M le rubis (10.0:1) */
+  .post-list li:nth-child(10n+7)  .post-card { border-top-color: #69372B; } /* 4320D terre sienne brûlée 59 (9.3:1) */
+  .post-list li:nth-child(10n+8)  .post-card { border-top-color: #333230; } /* 4320R ombre naturelle 59 (12.4:1) */
+  .post-list li:nth-child(10n+9)  .post-card { border-top-color: #2F2624; } /* 4320J terre d'ombre brûlée 59 (14.3:1) */
+  .post-list li:nth-child(10n+10) .post-card { border-top-color: #080F15; } /* 4320E noir d'ivoire (18.7:1) */
+}
+
 @media (hover: hover) {
   .post-card:hover {
-    border-color: var(--muted);
+    border-right-color: var(--muted);
+    border-bottom-color: var(--muted);
+    border-left-color: var(--muted);
   }
 }
 
@@ -424,13 +503,14 @@ app-root {
 }
 
 a.page-link:hover {
-  background: var(--band);
+  background: var(--pill);
+  color: var(--on-pill);
 }
 
 .page-link.current {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: #110e2e;
+  background: var(--strong-bg);
+  border-color: var(--strong-bg);
+  color: var(--strong-fg);
   font-weight: 600;
 }
 
@@ -460,6 +540,8 @@ a.page-link:hover {
 @media (hover: hover) {
   .post-card > a:hover h2 {
     text-decoration: underline;
+    text-decoration-color: var(--highlight);
+    text-decoration-thickness: 3px;
   }
 }
 
@@ -500,14 +582,24 @@ a.page-link:hover {
   list-style: none;
   font-size: 0.78rem;
   font-weight: 500;
-  color: var(--muted);
-  background: var(--band);
+  color: var(--on-pill);   /* 4320D terre sienne brûlée 59 */
+  background: var(--pill); /* 4320P terre sienne claire 59 */
   border-radius: var(--radius);
   padding: 0.2rem 0.6rem;
 }
 
+/* tag pills: stable slot per tag (djb2 hash in tag-color.ts) across 4 wall
+   tones, accent text ≥ 4.5:1 on each — same tag, same color, everywhere */
+.tags li.tag-c0 { background: #F7CC9D; color: #69372B; } /* 4320P / 4320D (6.5:1) */
+.tags li.tag-c1 { background: #F2B573; color: #080F15; } /* 4320L / 4320E (10.7:1) */
+.tags li.tag-c2 { background: #7FACC6; color: #080F15; } /* 4320N / 4320E (7.9:1) */
+.tags li.tag-c3 { background: #899498; color: #080F15; } /* 4320O / 4320E (6.2:1) */
+
 .section-title {
   margin: clamp(60px, 8vw, 100px) 0 25px;
+  padding-bottom: 6px;
+  width: fit-content;
+  border-bottom: 3px solid var(--highlight); /* 4320A / 4320W */
 }
 
 /* ── Article (blog post / static page) ───────────────────────────────── */
@@ -522,7 +614,7 @@ a.page-link:hover {
   display: inline-block;
   margin-bottom: 1.5rem;
   background: var(--accent);
-  color: #110e2e;
+  color: var(--on-accent);
   font-size: 0.85rem;
   font-weight: 600;
   text-decoration: none;
@@ -533,7 +625,7 @@ a.page-link:hover {
 
 .post .back:hover {
   background: var(--accent-hover);
-  color: #110e2e;
+  color: var(--on-accent-hover);
 }
 
 .post .cover {
@@ -574,18 +666,13 @@ a.page-link:hover {
   mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/%3E%3Cpolyline points='15 3 21 3 21 9'/%3E%3Cline x1='10' y1='14' x2='21' y2='3'/%3E%3C/svg%3E") center / contain no-repeat;
 }
 
-/* ── Footer — Canora dark band (#110e2e, links #c9c9c9 → hover #75e6e3) ── */
+/* ── Footer — dark band: wall gris foncé 59 bg, accent text ─────────── */
 
 .site-footer {
-  background: #110e2e;
-  color: #c9c9c9;
+  background: #4A535B;       /* 4320U gris foncé 59 (wall) */
+  color: #F4BD48;            /* 4320W le jaune vif — only accent ≥ 4.5:1 on gris foncé (4.6:1) */
+  border-top: 4px solid var(--highlight); /* 4320A light (6.4:1 vs blanc) / 4320W dark (4.6:1 vs gris foncé) */
   padding: clamp(60px, 8vw, 100px) 0 40px;
-}
-
-@media (prefers-color-scheme: dark) {
-  .site-footer {
-    border-top: 1px solid var(--line);
-  }
 }
 
 .footer-grid {
@@ -597,7 +684,7 @@ a.page-link:hover {
 }
 
 .site-footer .brand {
-  color: #ffffff;
+  color: #DE8DA0;            /* 4320C rose vif — 20px bold = large text, 3.1:1 ≥ 3:1 */
   font-weight: 700;
   font-size: 1.25rem;
   text-decoration: none;
@@ -609,7 +696,7 @@ a.page-link:hover {
 }
 
 .site-footer h2 {
-  color: #ffffff;
+  color: #F4BD48;            /* 4320W le jaune vif */
   font-size: 1.05rem;
   font-weight: 600;
   margin-bottom: 0.75rem;
@@ -625,64 +712,75 @@ a.page-link:hover {
 }
 
 .social-links a {
-  color: #c9c9c9;
+  color: #F4BD48;            /* 4320W le jaune vif (4.6:1) */
   font-size: 0.9rem;
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 .social-links a:hover {
-  color: var(--accent-hover);
+  color: #DE8DA0;            /* 4320C rose vif */
+  text-decoration: underline;
 }
 
 .copyright {
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-top: 1px solid color-mix(in srgb, #F4BD48 30%, transparent); /* 4320W */
   margin-top: 40px;
   padding-top: 24px;
   font-size: 0.8rem;
 }
 
-/* ── Dark mode: Prism light theme → readable token colors ────────────── */
+/* ── Dark mode extras ────────────────────────────────────────────────── */
+
+@media (prefers-color-scheme: dark) {
+  /* accent top edge per card — dark mode, all ≥ 3:1 vs gris foncé 59 */
+  .post-list li:nth-child(3n+1) .post-card { border-top-color: #F4BD48; } /* 4320W le jaune vif (4.6:1) */
+  .post-list li:nth-child(3n+2) .post-card { border-top-color: #DE8DA0; } /* 4320C rose vif (3.1:1) */
+  .post-list li:nth-child(3n)   .post-card { border-top-color: #A4AA35; } /* 4320F vert olive vif (3.1:1) */
+}
+
+/* Dark mode: Prism tokens remapped to Salubra 1959 accents,
+   readable on code bg terre sienne claire 59 (4320P) */
 
 @media (prefers-color-scheme: dark) {
   code[class*='language-'],
   pre[class*='language-'] {
-    color: #d7dce8;
+    color: #080F15;          /* 4320E noir d'ivoire (12.9:1) */
     background: var(--code-bg);
   }
   .token.comment,
   .token.prolog,
   .token.doctype,
   .token.cdata {
-    color: #8b93a7;
+    color: color-mix(in srgb, #69372B 60%, #F7CC9D); /* 4320D */
   }
   .token.punctuation {
-    color: #a6adc0;
+    color: #333230;          /* 4320R ombre naturelle 59 (8.6:1) */
   }
   .token.keyword {
-    color: #93a5ff;
+    color: #0E2D58;          /* 4320T bleu outremer foncé (9.2:1) */
   }
   .token.string,
   .token.char,
   .token.attr-value {
-    color: #7ee0b8;
+    color: #69372B;          /* 4320D terre sienne brûlée 59 (6.5:1) */
   }
   .token.number,
   .token.boolean {
-    color: #ffb86c;
+    color: #6C2B3B;          /* 4320M le rubis (6.9:1) */
   }
   .token.function,
   .token.class-name {
-    color: var(--accent);
+    color: #395A8E;          /* 4320K bleu outremer 59 (4.7:1) */
   }
   .token.operator {
-    color: #ff8fa3;
+    color: #A33A29;          /* 4320A rouge vermillon 59 */
     background: none;
   }
   .token.tag {
-    color: #ff8fa3;
+    color: #A33A29;          /* 4320A rouge vermillon 59 */
   }
   .token.attr-name {
-    color: #93a5ff;
+    color: #0E2D58;          /* 4320T bleu outremer foncé */
   }
 }
