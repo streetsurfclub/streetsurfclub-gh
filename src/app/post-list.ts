@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { ContentFile } from '@analogjs/content';
 
 import { PostAttributes } from './post.model';
+import { tagColorClass } from './tag-color';
 
 /** Posts per page — keep in sync with vite.config.ts prerender routes. */
 export const POSTS_PER_PAGE = 12;
@@ -34,7 +35,7 @@ export const POSTS_PER_PAGE = 12;
               <p>{{ post.attributes.description }}</p>
               <ul class="tags">
                 @for (tag of post.attributes.tags; track tag) {
-                  <li>#{{ tag }}</li>
+                  <li [class]="tagColorClass(tag)">#{{ tag }}</li>
                 }
               </ul>
             </div>
@@ -67,6 +68,7 @@ export const POSTS_PER_PAGE = 12;
   `,
 })
 export class PostList {
+  readonly tagColorClass = tagColorClass;
   readonly posts = input.required<ContentFile<PostAttributes>[]>();
   readonly page = input.required<number>();
   readonly totalPages = input.required<number>();

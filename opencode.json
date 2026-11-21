@@ -1,0 +1,11 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "servers": {
+      "lecorbusier-mcp": {
+        "type": "local",
+        "command": ["node", "/Users/linuswieland/Documents/playground/lecorbusier-mcp/dist/index.js"]
+      }
+    }
+  }
+}

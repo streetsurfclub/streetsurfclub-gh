@@ -9,6 +9,7 @@ import {
 } from '@analogjs/content';
 
 import { PostAttributes } from '../post.model';
+import { tagColorClass } from '../tag-color';
 
 function activePost(slug: string | null) {
   const posts = injectContentFiles<PostAttributes>((file) =>
@@ -49,7 +50,7 @@ export const routeMeta: RouteMeta = {
         </p>
         <ul class="tags">
           @for (tag of post.attributes.tags; track tag) {
-            <li>#{{ tag }}</li>
+            <li [class]="tagColorClass(tag)">#{{ tag }}</li>
           }
         </ul>
         @if (post.attributes.coverImage) {
@@ -61,5 +62,6 @@ export const routeMeta: RouteMeta = {
   `,
 })
 export default class BlogPostPage {
+  readonly tagColorClass = tagColorClass;
   readonly post$ = injectContent<PostAttributes>({ subdirectory: 'blog', param: 'slug' });
 }
