@@ -31,7 +31,6 @@ export default defineConfig({
           const totalPages = Math.max(1, Math.ceil(countPosts() / POSTS_PER_PAGE));
           return [
             '/',
-            '/about',
             // blog pagination: /posts/2 … /posts/N (page 1 is '/')
             ...Array.from({ length: totalPages - 1 }, (_, i) => `/posts/${i + 2}`),
             {

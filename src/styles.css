@@ -361,32 +361,45 @@ app-root {
   color: #110e2e;
 }
 
-/* ── Post grid — Canora blog grid: 1/2/3 cols, gap 25px ──────────────── */
+/* ── Post grid — masonry via CSS columns (css-nojs multi-column pattern):
+   1/2/3 cols, 40px gutter, cards flow down columns ───────────────────── */
 
 .post-list {
   list-style: none;
   padding: 0;
   margin: 0;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 25px;
+  columns: 1;
+  column-gap: 40px;
 }
 @media (min-width: 768px) {
-  .post-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .post-list { columns: 2; }
 }
 @media (min-width: 992px) {
-  .post-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .post-list { columns: 3; }
 }
 
 .post-list li {
   list-style: none;
   min-width: 0;
+  break-inside: avoid; /* never split a card across columns */
+  margin-bottom: 5px;
 }
 
 /* Skip rendering off-screen cards — huge win with many posts, pure CSS. */
 .post-card {
   content-visibility: auto;
-  contain-intrinsic-size: auto 340px;
+  contain-intrinsic-size: auto 380px;
+  /* slight card border so masonry items read as separate cards */
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 12px;
+  transition: border-color 0.2s ease;
+}
+
+@media (hover: hover) {
+  .post-card:hover {
+    border-color: var(--muted);
+  }
 }
 
 /* Pagination */
@@ -427,18 +440,14 @@ a.page-link:hover {
   text-decoration: none;
 }
 
+/* Natural aspect ratio — portrait and landscape covers both show fully,
+   which is what makes the column masonry look uneven in a good way. */
 .post-card img {
   width: 100%;
-  height: 200px;
-  object-fit: cover;
+  height: auto;
   display: block;
   border-radius: var(--radius);
   margin-bottom: clamp(20px, 2vw, 28px);
-  transition: transform 0.3s ease;
-}
-
-.post-card > a:hover img {
-  transform: scale(1.02);
 }
 
 .post-card h2 {
@@ -447,8 +456,11 @@ a.page-link:hover {
   margin-bottom: 10px;
 }
 
-.post-card > a:hover h2 {
-  text-decoration: underline;
+/* hover only on devices that can hover — avoids sticky underline after tap */
+@media (hover: hover) {
+  .post-card > a:hover h2 {
+    text-decoration: underline;
+  }
 }
 
 .post-card-body > p {

@@ -15,7 +15,6 @@ import { PageAttributes } from './page.model';
           <li>
             <a routerLink="/" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active">Home</a>
           </li>
-          <li><a routerLink="/about" routerLinkActive="active">About</a></li>
           @for (page of pages; track page.attributes.slug) {
             <li>
               <a [routerLink]="['/page', page.attributes.slug]" routerLinkActive="active">{{ page.attributes.title }}</a>
@@ -38,11 +37,6 @@ import { PageAttributes } from './page.model';
           <a routerLink="/" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active"
              popovertarget="mobile-nav" popovertargetaction="hide"
              (click)="closeMenu()">Home</a>
-        </li>
-        <li>
-          <a routerLink="/about" routerLinkActive="active"
-             popovertarget="mobile-nav" popovertargetaction="hide"
-             (click)="closeMenu()">About</a>
         </li>
         @for (page of pages; track page.attributes.slug) {
           <li>
