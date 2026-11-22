@@ -1,6 +1,7 @@
 ---
 title: StreetSurfClub
-tagline: Posts about street surfing, spots and sessions.
+tagline: '.'
+logo: ''
 socialLinks:
   - platform: GitHub
     url: https://github.com/streetsurfclub/streetsurfclub-gh
