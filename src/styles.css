@@ -236,9 +236,9 @@ app-root {
   .container { max-width: 1320px; padding-inline: 0; }
 }
 
-/* Canora section rhythm: 60 → 150px, fluid instead of 5 breakpoint steps. */
+/* Canora section rhythm: 40 → 96px, fluid instead of 5 breakpoint steps. */
 .section {
-  padding-block: clamp(60px, 9vw, 150px);
+  padding-block: clamp(24px, 2vw, 96px);
 }
 
 /* ── Header / nav ────────────────────────────────────────────────────── */
@@ -257,7 +257,7 @@ app-root {
   flex-wrap: wrap;
   row-gap: 0.5rem;
   gap: 1rem;
-  padding-block: 20px;
+  padding-block: 12px;
 }
 
 .site-nav .brand {
@@ -266,11 +266,26 @@ app-root {
   font-size: 1.25rem;
   margin-right: auto;
   text-decoration: none;
+  display: inline-flex;
+  align-items: center;
 }
 
-.site-nav .brand::after {
+.site-nav .brand-text::after {
   content: '.';
   color: var(--highlight);   /* 4320A rouge vermillon 59 / 4320W dark */
+}
+
+/* Logo in the nav — wordmark, dark variant via <picture> media query.
+   Only visible on small viewports (<= 768px, same breakpoint as the
+   hamburger); desktop shows the text brand instead. */
+.brand-picture {
+  display: none;
+}
+.brand-logo {
+  display: block;
+  height: 26px;
+  width: auto;
+  max-width: 55vw;
 }
 
 .nav-links {
@@ -389,6 +404,12 @@ app-root {
     align-items: center;
     justify-content: center;
   }
+  .brand-picture {
+    display: block;
+  }
+  .brand-text {
+    display: none;
+  }
 }
 
 /* ── Hero band — ocre jaune clair 59 (4320L), noir d'ivoire text ────── */
@@ -396,12 +417,21 @@ app-root {
 .hero {
   background: var(--band);   /* 4320L ocre jaune clair — solid, no gradient */
   text-align: center;
-  padding-block: clamp(60px, 9vw, 120px);
+  padding-block: clamp(24px, 2vw, 72px);
 }
 
 .hero h1 {
   color: var(--on-band);
   margin-bottom: 0.75rem;
+}
+
+/* Full logo in the hero — dark variant via <picture> media query */
+.hero-logo {
+  display: block;
+  margin-inline: auto;
+  height: clamp(110px, 18vw, 180px);
+  width: auto;
+  max-width: min(92%, 560px);
 }
 
 .hero p {
@@ -629,7 +659,7 @@ a.page-link:hover {
 
 /* client-side post search (?q=) / tag filter (?tag=) */
 .post-search {
-  margin: 0 0 1.25rem;
+  margin: 0 0 1rem;
 }
 .post-search input {
   appearance: none;

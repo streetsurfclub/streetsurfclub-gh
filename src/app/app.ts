@@ -10,7 +10,23 @@ import { PageAttributes } from './page.model';
   template: `
     <header class="site-header">
       <nav class="site-nav container">
-        <a routerLink="/" class="brand">{{ settings?.title ?? 'StreetSurfClub' }}</a>
+        <a routerLink="/" class="brand" [attr.aria-label]="settings?.title ?? 'StreetSurfClub'">
+          <span class="brand-text">{{ settings?.title ?? 'StreetSurfClub' }}</span>
+          @if (settings?.logo) {
+            <picture class="brand-picture">
+              @if (settings?.logoDark) {
+                <source [srcset]="settings?.logoDark" media="(prefers-color-scheme: dark)" />
+              }
+              <img
+                class="brand-logo"
+                [src]="settings?.logo"
+                [alt]="settings?.title ?? 'StreetSurfClub'"
+                width="2446"
+                height="429"
+              />
+            </picture>
+          }
+        </a>
         <ul class="nav-links">
           <li>
             <a routerLink="/" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active">Home</a>
