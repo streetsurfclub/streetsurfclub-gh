@@ -55,6 +55,9 @@ collections:
           - { label: Site Title, name: title, widget: string }
           - { label: Tagline, name: tagline, widget: string }
           - { label: Logo, name: logo, widget: image, required: false }
+          - { label: Logo (dark mode), name: logoDark, widget: image, required: false }
+          - { label: Hero Logo, name: logoFull, widget: image, required: false }
+          - { label: Hero Logo (dark mode), name: logoFullDark, widget: image, required: false }
           - label: Social Links
             name: socialLinks
             widget: list

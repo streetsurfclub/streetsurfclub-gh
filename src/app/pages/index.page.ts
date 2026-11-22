@@ -16,8 +16,26 @@ import { PostSearch, filterPostsByQuery, filterPostsByTag } from '../post-search
   template: `
     <header class="hero">
       <div class="container">
-        <h1>{{ settings?.title ?? 'StreetSurfClub' }}</h1>
-        <p>{{ settings?.tagline }}</p>
+        <h1 class="hero-title">
+          @if (settings?.logoFull) {
+            <picture>
+              @if (settings?.logoFullDark) {
+                <source [srcset]="settings?.logoFull" media="(prefers-color-scheme: dark)" />
+              }
+              <img
+                class="hero-logo"
+                [src]="settings?.logoFull"
+                [alt]="settings?.title ?? 'StreetSurfClub'"
+                width="1874"
+                height="1068"
+              />
+            </picture>
+          } @else {
+            {{ settings?.title ?? 'StreetSurfClub' }}
+          }
+        </h1>
+                <!--p>{{ settings?.tagline }}</p-->
+
       </div>
     </header>
 
@@ -37,23 +55,7 @@ import { PostSearch, filterPostsByQuery, filterPostsByTag } from '../post-search
         }
         <app-post-list [posts]="posts()" [page]="1" [totalPages]="totalPages()" />
 
-        @if (pages.length) {
-          <h2 class="section-title">Pages</h2>
-          <ul class="post-list">
-            @for (page of pages; track page.attributes.slug) {
-              <li class="post-card">
-                <a [routerLink]="['/page', page.attributes.slug]">
-                  <div class="post-card-body">
-                    <h2>{{ page.attributes.title }}</h2>
-                    @if (page.attributes.description) {
-                      <p>{{ page.attributes.description }}</p>
-                    }
-                  </div>
-                </a>
-              </li>
-            }
-          </ul>
-        }
+
       </div>
     </section>
   `,

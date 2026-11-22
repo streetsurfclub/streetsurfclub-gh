@@ -4,6 +4,9 @@ export interface SiteSettings {
   title: string;
   tagline: string;
   logo?: string;
+  logoDark?: string;
+  logoFull?: string;
+  logoFullDark?: string;
   socialLinks?: { platform: string; url: string }[];
 }
 
