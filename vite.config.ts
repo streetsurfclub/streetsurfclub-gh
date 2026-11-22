@@ -33,6 +33,8 @@ export default defineConfig({
             '/',
             // blog pagination: /posts/2 … /posts/N (page 1 is '/')
             ...Array.from({ length: totalPages - 1 }, (_, i) => `/posts/${i + 2}`),
+            // tag filtering runs client-side via ?tag= on the prerendered
+            // list pages (see post-search.ts) — no per-tag routes needed
             {
               contentDir: 'src/content/blog',
               transform: (file) => {

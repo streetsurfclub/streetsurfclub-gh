@@ -40,6 +40,7 @@
   --line: color-mix(in srgb, #559778 55%, transparent); /* 4320G vert 59 — border hue, distinct from noir text */
 
   --radius: 7px;
+  --control-h: 52px;      /* shared height: search field + hamburger button */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -306,8 +307,10 @@ app-root {
 
 .menu-btn {
   display: none;
+  box-sizing: border-box;
   margin: 0;
-  padding: 0.25rem 0.6rem;
+  height: var(--control-h);
+  padding: 0 0.9rem;
   font-size: 1.1rem;
   line-height: 1;
   background: none;
@@ -382,7 +385,9 @@ app-root {
     display: none;
   }
   .menu-btn {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 
@@ -604,6 +609,61 @@ a.page-link:hover {
 .tags li.tag-c1 { background: #F2B573; color: #080F15; } /* 4320L / 4320E (10.7:1) */
 .tags li.tag-c2 { background: #7FACC6; color: #080F15; } /* 4320N / 4320E (7.9:1) */
 .tags li.tag-c3 { background: #899498; color: #080F15; } /* 4320O / 4320E (6.2:1) */
+
+/* tag pills link to the prerendered /tag/<slug> filter page */
+.tags li a {
+  color: inherit;
+  text-decoration: none;
+}
+@media (hover: hover) {
+  .tags li a:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+  }
+}
+
+/* in post cards the pills sit outside the card link (no nested <a>) */
+.post-card > .tags {
+  margin-top: 0.75rem;
+}
+
+/* client-side post search (?q=) / tag filter (?tag=) */
+.post-search {
+  margin: 0 0 1.25rem;
+}
+.post-search input {
+  appearance: none;
+  -webkit-appearance: none;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 640px;
+  height: var(--control-h);
+  margin: 0;
+  padding: 0 1.1rem;
+  font-family: inherit;
+  font-size: 1.05rem;
+  color: var(--ink);
+  background: var(--bg);
+  border: 2px solid var(--line);
+  border-radius: var(--radius);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.post-search input::placeholder {
+  color: var(--muted);
+  opacity: 0.7;
+}
+.post-search input:focus {
+  outline: none;
+  border-color: var(--highlight);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--highlight) 25%, transparent);
+}
+.search-info {
+  color: var(--muted);
+  margin: -0.25rem 0 1.5rem;
+}
+.search-info a {
+  color: var(--primary);
+}
 
 .section-title {
   margin: clamp(60px, 8vw, 100px) 0 25px;

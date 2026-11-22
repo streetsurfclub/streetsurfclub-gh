@@ -33,13 +33,17 @@ export const POSTS_PER_PAGE = 12;
                 }}</time>
               </p>
               <p>{{ post.attributes.description }}</p>
-              <ul class="tags">
-                @for (tag of post.attributes.tags; track tag) {
-                  <li [class]="tagColorClass(tag)">#{{ tag }}</li>
-                }
-              </ul>
             </div>
           </a>
+          @if (post.attributes.tags?.length) {
+            <ul class="tags">
+              @for (tag of post.attributes.tags; track tag) {
+                <li [class]="tagColorClass(tag)">
+                  <a [routerLink]="['/']" [queryParams]="{ tag: tag }">#{{ tag }}</a>
+                </li>
+              }
+            </ul>
+          }
         </li>
       } @empty {
         <li>No posts yet.</li>

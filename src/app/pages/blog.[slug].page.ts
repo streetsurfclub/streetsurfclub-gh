@@ -50,7 +50,9 @@ export const routeMeta: RouteMeta = {
         </p>
         <ul class="tags">
           @for (tag of post.attributes.tags; track tag) {
-            <li [class]="tagColorClass(tag)">#{{ tag }}</li>
+            <li [class]="tagColorClass(tag)">
+              <a [routerLink]="['/']" [queryParams]="{ tag: tag }">#{{ tag }}</a>
+            </li>
           }
         </ul>
         @if (post.attributes.coverImage) {
